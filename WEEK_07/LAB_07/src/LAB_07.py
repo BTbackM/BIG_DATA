@@ -21,15 +21,12 @@ def read_benchmark(name):
 
 def make_query(query, name):
     start = time.time()
-    output = c.sql(query)
-    output.compute()
+    output = c.sql(query).compute()
     end = time.time()
     with open(dask_times, 'a') as f:
         f.write(f'{name},{(end - start) * 1000}\n')
     # Results to CSV
-    # column_names = [desc[0] for desc in output.description]
-    # df = pd.DataFrame(output.fetchall(), columns=column_names)
-    # df.to_csv(path.join(results_path, f'{name:02d}.csv'), index=False)
+    df.to_csv(path.join(results_path, f'{name:02d}.csv'), index=False)
 
 def queries():
     # Read parquet files

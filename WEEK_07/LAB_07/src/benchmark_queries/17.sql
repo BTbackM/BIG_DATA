@@ -1,17 +1,17 @@
-select
-	sum(l_extendedprice) / 7.0 as avg_yearly
-from
+SELECT
+	SUM(l_extendedprice) / 7.0 AS avg_yearly
+FROM
 	lineitem,
 	part
-where
+WHERE
 	p_partkey = l_partkey
-	and p_brand = 'Brand#23'
-	and p_container = 'MED BOX'
-	and l_quantity < (
-		select
-			0.2 * avg(l_quantity)
-		from
+	AND p_brand = 'Brand#23'
+	AND p_container = 'MED BOX'
+	AND l_quantity < (
+		SELECT
+			0.2 * AVG(l_quantity)
+		FROM
 			lineitem
-		where
+		WHERE
 			l_partkey = p_partkey
 	);

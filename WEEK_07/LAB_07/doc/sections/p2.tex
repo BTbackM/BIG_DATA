@@ -1,0 +1,40 @@
+\section*{\scshape\textbf{Dask}}
+
+  A diferencia de \ti{DuckDB}, con \ti{Dask} se tiene que cargar las tablas
+  al contexto de ejecución. Por lo cual, luego de cargar las tablas del formato
+  \ti{.parquet} se ejecutó el siguiente código:
+
+  \begin{listing}[!ht]
+    \inputminted[
+      breaklines,
+      fontfamily=SourceSansPro-TLF,
+      firstline=41,
+      lastline=49
+    ]{python}{../src/LAB_07.py}
+    \caption{Dask SQL python files}
+    \label{dask:tablas}
+  \end{listing}
+  
+  Donde cada query del $1$ al $23$ se ejecutaron $5$ veces para obtener un
+  promedio de los tiempos de ejecución, los tiempos de ejecución se pueden
+  encontrar en el archivo \ti{data/dask\_times.csv}. Por otro lado, para
+  la ejecución de cada consulta se procedió de la siguiente manera:
+
+  \begin{listing}[!ht]
+    \inputminted[
+      breaklines,
+      fontfamily=SourceSansPro-TLF,
+      firstline=15,
+      lastline=29
+    ]{python}{../src/LAB_07.py}
+    \caption{Dask SQL python files}
+    \label{master_service}
+  \end{listing}
+
+  Como se puede ver en el código \ti{python} se leen las tablas de los archivos
+  \ti{.parquet}, asi como también se leen las consultas. Para finalmente hacer
+  las \ti{queries} respectivas con el commando \ti{sql} de \ti{dask}; sin embargo, debido
+  a la naturaleza de \ti{Dask} la consulta será ejecutada al llamar al commando\ti{compute}.
+  Cada uno de los tiempos de ejecución se guardan en el archivo \ti{dask\_times.csv} como también
+  los resultados de la query en su respectivo archivo \ti{.csv}, todo esto para
+  hacer las comparaciones respectivas en los siguientes experimentos.

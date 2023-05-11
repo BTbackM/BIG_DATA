@@ -1,4 +1,4 @@
-select
+SELECT
 	s_acctbal,
 	s_name,
 	n_name,
@@ -7,38 +7,38 @@ select
 	s_address,
 	s_phone,
 	s_comment
-from
+FROM
 	part,
 	supplier,
 	partsupp,
 	nation,
 	region
-where
+WHERE
 	p_partkey = ps_partkey
-	and s_suppkey = ps_suppkey
-	and p_size = 15
-	and p_type like '%BRASS'
-	and s_nationkey = n_nationkey
-	and n_regionkey = r_regionkey
-	and r_name = 'EUROPE'
-	and ps_supplycost = (
-		select
-			min(ps_supplycost)
-		from
+	AND s_suppkey = ps_suppkey
+	AND p_size = 15
+	AND p_type LIKE '%BRASS'
+	AND s_nationkey = n_nationkey
+	AND n_regionkey = r_regionkey
+	AND r_name = 'EUROPE'
+	AND ps_supplycost = (
+		SELECT
+			MIN(ps_supplycost)
+		FROM
 			partsupp,
 			supplier,
 			nation,
 			region
-		where
+		WHERE
 			p_partkey = ps_partkey
-			and s_suppkey = ps_suppkey
-			and s_nationkey = n_nationkey
-			and n_regionkey = r_regionkey
-			and r_name = 'EUROPE'
+			AND s_suppkey = ps_suppkey
+			AND s_nationkey = n_nationkey
+			AND n_regionkey = r_regionkey
+			AND r_name = 'EUROPE'
 	)
-order by
-	s_acctbal desc,
+ORDER BY
+	s_acctbal DESC,
 	n_name,
 	s_name,
 	p_partkey
-limit 100;
+LIMIT 100;

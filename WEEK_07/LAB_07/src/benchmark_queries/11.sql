@@ -1,30 +1,30 @@
-select
+SELECT
 	ps_partkey,
-	sum(ps_supplycost * ps_availqty) as value
-from
+	SUM(ps_supplycost * ps_availqty) AS value
+FROM
 	partsupp,
 	supplier,
 	nation
-where
+WHERE
 	ps_suppkey = s_suppkey
-	and s_nationkey = n_nationkey
-	and n_name = 'GERMANY'
-group by
-	ps_partkey having
-		sum(ps_supplycost * ps_availqty) > (
-			select
-				sum(ps_supplycost * ps_availqty) * 0.0100000000
+	AND s_nationkey = n_nationkey
+	AND n_name = 'GERMANY'
+GROUP BY
+	ps_partkey HAVING
+		SUM(ps_supplycost * ps_availqty) > (
+			SELECT
+				SUM(ps_supplycost * ps_availqty) * 0.0100000000
 			--	                                   ^^^^^^^^^^^^
 			-- The above constant needs to be adjusted according
 			-- to the scale factor (SF): constant = 0.0001 / SF.
-			from
+			FROM
 				partsupp,
 				supplier,
 				nation
-			where
+			WHERE
 				ps_suppkey = s_suppkey
-				and s_nationkey = n_nationkey
-				and n_name = 'GERMANY'
+				AND s_nationkey = n_nationkey
+				AND n_name = 'GERMANY'
 		)
-order by
-	value desc;
+ORDER BY
+	value DESC;

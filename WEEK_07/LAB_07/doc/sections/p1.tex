@@ -1,0 +1,49 @@
+\section*{\scshape\textbf{DuskDB}}
+
+  Para el siguiente laboratorio se trataron de ejecutar todas las consultas
+  de la carpeta de \ti{benchmark\_queries} del repositorio de Github adjunto,
+  como por ejemplo:
+  
+  \begin{listing}[!ht]
+    \inputminted[
+      breaklines,
+      fontfamily=SourceSansPro-TLF
+    ]{sql}{../src/benchmark_queries/06.sql}
+    \caption{SQL \ti{query} 06}
+    \label{sql:query}
+  \end{listing}
+  
+  Donde cada query del $1$ al $23$ se ejecutaron $5$ veces para obtener un
+  promedio de los tiempos de ejecución, los tiempos de ejecución se pueden
+  encontrar en el archivo \ti{data/duckdb\_times.csv}. Por otro lado, para
+  la ejecución de cada consulta se procedió de la siguiente manera:
+
+  \begin{listing}[!ht]
+    \inputminted[
+      breaklines,
+      fontfamily=SourceSansPro-TLF,
+      firstline=14,
+      lastline=30
+    ]{python}{../../../WEEK_06/LAB_06.py}
+    \caption{DuckDB python files}
+    \label{duckdb:python}
+  \end{listing}
+
+  Como se puede ver en el código \ti{python} se leen las tablas de los archivos
+  \ti{.parquet}, asi como también se leen las consultas. Para finalmente hacer
+  las \ti{queries} respectivas con el commando \ti{sql} de \ti{duckdb}. Cada uno de
+  los tiempos de ejecución se guardan en el archivo \ti{duckdb\_times.csv} como también
+  los resultados de la query en su respectivo archivo \ti{.csv}, todo esto para
+  hacer las comparaciones respectivas en los siguientes experimentos.
+
+  Para más detalles se pueden revisar los siguiente archivos en el repositorio:
+  
+  \begin{enumerate}[\tiny$\blacksquare$]
+    \item \tb{Carpeta benchmark\_queries:} Para ver las consultas ejecutadas
+    \item \tb{Carpeta data:} Para ver los resultados de los tiempos de ejecución
+    \item \tb{Carpeta expected\_results:} Para ver los resultados de las consultas
+    \item \tb{Archivo LAB\_06.py:} Para ver el código \ti{python} de \ti{DuckDB}
+  \end{enumerate}
+
+  todo esto de manera más detallada en el repositorio \ti{Github} en el
+  siguiente link: \href{https://github.com/BTbackM/BIG_DATA/tree/main/WEEK_07/LAB_07/}{LAB 07}

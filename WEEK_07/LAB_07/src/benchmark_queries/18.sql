@@ -1,33 +1,33 @@
-select
+SELECT
 	c_name,
 	c_custkey,
 	o_orderkey,
 	o_orderdate,
 	o_totalprice,
-	sum(l_quantity)
-from
+	SUM(l_quantity)
+FROM
 	customer,
 	orders,
 	lineitem
-where
-	o_orderkey in (
-		select
+WHERE
+	o_orderkey IN (
+		SELECT
 			l_orderkey
-		from
+		FROM
 			lineitem
-		group by
-			l_orderkey having
-				sum(l_quantity) > 300
+		GROUP BY
+			l_orderkey HAVING
+				SUM(l_quantity) > 300
 	)
-	and c_custkey = o_custkey
-	and o_orderkey = l_orderkey
-group by
+	AND c_custkey = o_custkey
+	AND o_orderkey = l_orderkey
+GROUP BY
 	c_name,
 	c_custkey,
 	o_orderkey,
 	o_orderdate,
 	o_totalprice
-order by
-	o_totalprice desc,
+ORDER BY
+	o_totalprice DESC,
 	o_orderdate
-limit 100;
+LIMIT 100;

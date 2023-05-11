@@ -1,0 +1,36 @@
+set font "Open Sans,16"
+
+scale = 4.0
+# Set the output file format and name
+set terminal pngcairo transparent size 600 * scale,600 * scale fontscale scale linewidth scale pointscale scale
+set output "../../doc/img/merge.png"
+
+# Set the plot title and axis labels
+set xlabel "{/:Bold Queries}" offset 0,0.5 font ",16"
+set ylabel "{/:Bold Time(milliseconds)}" offset 1.5,0 font ",16"
+
+# Load the data file
+duckdb = "../../data/duckdb_times.csv"
+dask = "../../data/dask_times.csv"
+
+set grid nopolar
+set border 3 front lt black lw 3 dashtype solid
+set xtics out nomirror
+set ytics out nomirror
+
+# Add a legend to the plot
+set key left top font ",16"
+set key box lt -1 lw 2
+
+
+# Plot the data as circles
+set datafile separator ','
+plot duckdb using 1:2 with points pt 6 ps 3 linecolor rgb "#0067CD" title "duckdb times", \
+  dask using 1:2 with points pt 6 ps 3 linecolor rgb "#FEC75C" title "dask times"
+
+# Limits
+# set xrange [0:20]
+# set yrange [0:30]
+
+# Save the plot to a file
+set output

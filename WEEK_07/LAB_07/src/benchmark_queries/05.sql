@@ -1,24 +1,24 @@
-select
+SELECT
 	n_name,
-	sum(l_extendedprice * (1 - l_discount)) as revenue
-from
+	SUM(l_extendedprice * (1 - l_discount)) AS revenue
+FROM
 	customer,
 	orders,
 	lineitem,
 	supplier,
 	nation,
 	region
-where
+WHERE
 	c_custkey = o_custkey
-	and l_orderkey = o_orderkey
-	and l_suppkey = s_suppkey
-	and c_nationkey = s_nationkey
-	and s_nationkey = n_nationkey
-	and n_regionkey = r_regionkey
-	and r_name = 'ASIA'
-	and o_orderdate >= date '1994-01-01'
-	and o_orderdate < date '1994-01-01' + interval '1' year
-group by
+	AND l_orderkey = o_orderkey
+	AND l_suppkey = s_suppkey
+	AND c_nationkey = s_nationkey
+	AND s_nationkey = n_nationkey
+	AND n_regionkey = r_regionkey
+	AND r_name = 'ASIA'
+	AND o_orderdate >= date '1994-01-01'
+	AND o_orderdate < date '1994-01-01' + interval '1' year
+GROUP BY
 	n_name
-order by
+ORDER BY
 	revenue desc;
