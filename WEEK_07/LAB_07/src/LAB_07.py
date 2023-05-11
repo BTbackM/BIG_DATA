@@ -10,7 +10,7 @@ ABS_PATH = path.dirname(path.abspath(__file__))
 parquet_path = path.join(ABS_PATH, '../../../WEEK_04/data/parquet')
 benchmark_path = path.join(ABS_PATH, 'benchmark_queries')
 results_path = path.join(ABS_PATH, 'dask_results')
-dask_times = path.join(ABS_PATH, '../dask_times.csv')
+dask_times = path.join(ABS_PATH, '../data/dask_times.csv')
 
 def read_parquet(name):
     return pd.read_parquet(path.join(parquet_path, name))
@@ -23,10 +23,11 @@ def make_query(query, name):
     start = time.time()
     output = c.sql(query).compute()
     end = time.time()
+    c.sql(query).visualize(filename=f'../doc/img/{name:02d}.svg')
     with open(dask_times, 'a') as f:
         f.write(f'{name},{(end - start) * 1000}\n')
     # Results to CSV
-    df.to_csv(path.join(results_path, f'{name:02d}.csv'), index=False)
+    output.to_csv(path.join(results_path, f'{name:02d}.csv'), index=False)
 
 def queries():
     # Read parquet files
@@ -53,7 +54,7 @@ def queries():
         try:
             print(f'Query {i:02d}')
             query = read_benchmark(f'{i:02d}.sql')
-            for _ in range(5):
+            for _ in range(10):
                 make_query(query, i)
         except Exception as e:
             print(f'Query {i:02d} failed: {e}')

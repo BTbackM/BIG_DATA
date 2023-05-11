@@ -9,7 +9,7 @@ ABS_PATH = path.dirname(path.abspath(__file__))
 parquet_path = path.join(ABS_PATH, '../WEEK_04/data/parquet')
 benchmark_path = path.join(ABS_PATH, '../WEEK_07/LAB_07/src/benchmark_queries')
 results_path = path.join(ABS_PATH, '../WEEK_07/LAB_07/src/expected_results')
-duckdb_times = path.join(ABS_PATH, '../WEEK_07/LAB_07/src/duckdb_times.csv')
+duckdb_times = path.join(ABS_PATH, '../WEEK_07/LAB_07/data/duckdb_times.csv')
 
 def read_parquet(name):
     return pd.read_parquet(path.join(parquet_path, name))
@@ -45,7 +45,7 @@ def queries():
         try:
             print(f'Query {i:02d}')
             query = read_benchmark(f'{i:02d}.sql')
-            for _ in range(5):
+            for _ in range(20):
                 make_query(query, i)
         except Exception as e:
             print(f'Query {i:02d} failed: {e}')
