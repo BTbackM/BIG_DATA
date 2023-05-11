@@ -18,7 +18,23 @@ headers = {
     'orders'    : ["ORDERKEY", "CUSTKEY", "ORDERSTATUS", "TOTALPRICE", "ORDERDATE", "ORDERPRIORITY", "CLERK", "SHIPPRIORITY", "COMMENT"],
 }
 
+table_abbr = {
+    'part'      : 'p',
+    'supplier'  : 's',
+    'partsupp'  : 'ps',
+    'customer'  : 'c',
+    'nation'    : 'n',
+    'lineitem'  : 'l',
+    'region'    : 'r',
+    'orders'    : 'o',
+}
+
 data_path = path.join(ABS_PATH, 'data')
+
+def get_headers(name):
+    # Headers to lower case
+    headers[name] = [f'{table_abbr[name]}_{header.lower()}' for header in headers[name]]
+    return headers[name]
 
 # Convert files in data folder(tbl) to parquet files
 def from_tbl_to_parquet():
@@ -29,10 +45,13 @@ def from_tbl_to_parquet():
 
     files = glob(path.join(tbl_path, '*.tbl'))
     for file in files:
+        print(f'Converting {file} to parquet file')
         # Get table name
         table_name = path.splitext(path.basename(file))[0]
         # Read file
-        df = pd.read_csv(file, sep='|', names=headers[table_name])
+        df = pd.read_table(file, sep='|', header=None)
+        df = df.iloc[:, :-1]
+        df.columns = get_headers(table_name)
         # Write to parquet file
         df.to_parquet(path.join(parquet_path, table_name + '.parquet'))
 
