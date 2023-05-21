@@ -1,0 +1,23 @@
+version: "3"
+services:
+  namenode:
+    image: bde2020/hadoop-namenode
+    container_name: namenode
+    hostname: namenode
+    ports:
+      - "9870:9870"
+    volumes:
+      - ./data/namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=myhadoopcluster
+    command: /run.sh namenode
+
+  datanode:
+    image: bde2020/hadoop-datanode
+    container_name: datanode
+    hostname: datanode
+    volumes:
+      - ./data/datanode:/hadoop/dfs/data
+    environment:
+      - CLUSTER_NAME=myhadoopcluster
+    command: /run.sh datanode
