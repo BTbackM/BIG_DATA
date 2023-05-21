@@ -10,14 +10,14 @@ partitioned_path = path.join(ABS_PATH, '../data/partitioned_parquet')
 
 # Partition columns for each table
 partition_cols = {
-    'customer': [],
-    'lineitem': [],
+    'customer': ['c_nationkey'],
+    'lineitem': ['l_shipmode'],
     'nation': [],
-    'orders': [],
-    'part': [],
+    'orders': ['o_orderstatus'],
+    'part': ['p_brand'],
     'partsupp': [],
     'region': [],
-    'supplier': []
+    'supplier': ['s_nationkey']
 }
 
 # Partition tables using pyarrow and partition_cols
